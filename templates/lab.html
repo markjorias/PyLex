@@ -378,9 +378,13 @@
                     
                     document.getElementById('tokenCount').textContent = `${data.length} TOKENS FOUND`;
                     document.getElementById('latency').textContent = `${Math.round(endTime - startTime)}MS LATENCY`;
+                } else {
+                    const errData = await response.json();
+                    alert(`Error: ${errData.error}\nDetails: ${errData.details || 'Unknown error'}`);
                 }
             } catch (error) {
                 console.error(error);
+                alert("Critical Error: Failed to communicate with the Lexer Engine.");
             } finally {
                 tokenizeBtn.disabled = false;
                 tokenizeBtn.innerHTML = '<span class="material-symbols-outlined">analytics</span> ANALYZE TOKENS';

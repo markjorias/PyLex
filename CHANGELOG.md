@@ -12,6 +12,9 @@ All notable changes to this project will be documented in this file.
     - Implemented a GitHub Actions CI/CD pipeline (`ci.yml`) for automated builds and integration testing.
     - Added `.gitignore` and `.dockerignore` for improved repository hygiene.
     - Enabled tracking of pre-generated `bin/lex.yy.c` to support environments without `flex`.
+- **Serverless Robustness**:
+    - Implemented automatic runtime compilation of the Lexer Engine in `app.py` as a fallback for restricted environments.
+    - Added detailed frontend error reporting via alerts to facilitate production debugging.
 
 ### Changed
 - **Code Quality & Maintenance**:
