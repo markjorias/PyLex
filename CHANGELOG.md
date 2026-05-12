@@ -7,9 +7,11 @@ All notable changes to this project will be documented in this file.
 ### Added
 - **Deployment Infrastructure**:
     - Added `vercel.json` configuration for Vercel Serverless Functions deployment.
+    - Added `vercel-build.sh` to automate C binary compilation in serverless environments.
     - Added a multi-stage `Dockerfile` for efficient containerization and binary compilation.
     - Implemented a GitHub Actions CI/CD pipeline (`ci.yml`) for automated builds and integration testing.
     - Added `.gitignore` and `.dockerignore` for improved repository hygiene.
+    - Enabled tracking of pre-generated `bin/lex.yy.c` to support environments without `flex`.
 
 ### Changed
 - **Code Quality & Maintenance**:
@@ -20,6 +22,7 @@ All notable changes to this project will be documented in this file.
     - Professionally overhauled `README.md` with technical specifications, removing non-technical elements for an authoritative presentation.
 
 ### Fixed
+- **CI/CD Reliability**: Resolved a linker error (`-lfl`) in the GitHub Actions pipeline by adding `libfl-dev` to the Ubuntu build environment.
 - **Lexer Path Resolution**: Resolved potential path issues in serverless environments by implementing dynamic directory discovery in the backend.
 
 ## [2.0.0] - 2026-05-13

@@ -28,6 +28,7 @@ ENV/
 # PyLex Specific
 bin/lexer
 lex.yy.c
+!bin/lex.yy.c
 
 # IDEs
 .vscode/
