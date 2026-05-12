@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Lexer Academy | PyLex</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#ff00ff",
+                        secondary: "#00ffff",
+                        surface: "#0a0a0a",
+                    },
+                    fontFamily: {
+                        headline: ["Space Grotesk", "sans-serif"],
+                        body: ["Geist", "sans-serif"],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .motion-bg {
+            background: black;
+            overflow-x: hidden;
+        }
+        .blob {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .reveal { opacity: 0; transform: translateY(20px); }
+    </style>
+</head>
+<body class="motion-bg min-h-screen text-white font-body selection:bg-primary overflow-x-hidden">
+    <!-- Floating Background Blobs -->
+    <div class="blob bg-primary top-[-10%] left-[-10%]" id="blob1"></div>
+    <div class="blob bg-secondary bottom-[-10%] right-[-10%]" id="blob2"></div>
+    <div class="blob bg-primary/50 top-[40%] right-[20%]" id="blob3"></div>
+
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 opacity-0 -translate-y-4">
+        <div class="max-w-4xl mx-auto mt-6 px-4">
+            <div class="glass rounded-full px-2 h-16 flex justify-between items-center relative shadow-2xl border border-white/10">
+                <!-- Brand -->
+                <a href="/" class="pl-6 text-xl font-headline font-black tracking-tighter text-primary uppercase italic shrink-0">PyLex</a>
+                
+                <!-- Desktop Links (Centered with sliding indicator) -->
+                <div class="hidden md:flex items-center relative bg-white/5 rounded-full p-1 mx-auto">
+                    <!-- Sliding Indicator -->
+                    <div id="navIndicator" class="absolute h-[calc(100%-8px)] rounded-full bg-primary/20 border border-primary/30 transition-all duration-500 ease-out pointer-events-none"></div>
+                    
+                    <a href="/" class="nav-link relative z-10 px-6 py-2 text-white/60 hover:text-white font-bold uppercase tracking-widest text-[10px] transition-colors duration-300">Home</a>
+                    <a href="/academy" class="nav-link relative z-10 px-6 py-2 text-primary font-bold uppercase tracking-widest text-[10px] transition-colors duration-300">Academy</a>
+                    <a href="/lab" class="nav-link relative z-10 px-6 py-2 text-white/60 hover:text-white font-bold uppercase tracking-widest text-[10px] transition-colors duration-300">Lab</a>
+                </div>
+
+                <!-- Mobile Toggle -->
+                <div class="pr-4 md:hidden">
+                    <button id="mobileMenuBtn" class="text-white p-2 flex items-center justify-center">
+                        <span class="material-symbols-outlined" id="menuIcon">menu</span>
+                    </button>
+                </div>
+                
+                <!-- Placeholder for desktop alignment -->
+                <div class="hidden md:block w-[80px]"></div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden absolute top-24 left-1/2 -translate-x-1/2 w-[90%] glass rounded-3xl p-8 flex flex-col gap-6 text-center uppercase tracking-[0.3em] text-sm font-bold z-50 shadow-2xl border border-white/20">
+            <a href="/" class="hover:text-primary py-2 border-b border-white/5">Home</a>
+            <a href="/academy" class="text-primary py-2 border-b border-white/5">Academy</a>
+            <a href="/lab" class="hover:text-primary py-2">Lexical Lab</a>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Backdrop -->
+    <div id="mobileMenuBackdrop" class="fixed inset-0 bg-black/20 z-40 hidden transition-all duration-300"></div>
+
+    <main class="pt-40 px-12 max-w-7xl mx-auto space-y-20">
+        <section id="heroHeader" class="text-center space-y-4 opacity-0 translate-y-10">
+            <h1 class="text-6xl md:text-8xl font-headline font-black italic tracking-tighter">THE LEXER <span class="text-primary">ACADEMY</span></h1>
+            <p class="text-white/60 text-xl max-w-3xl mx-auto uppercase tracking-widest font-bold">Mastering the Grammar of Python Lexical Analysis</p>
+        </section>
+
+        <section class="space-y-12">
+            <h2 id="dictHeader" class="text-3xl font-headline font-bold uppercase tracking-tight border-l-4 border-primary pl-6 reveal">Lexical Element Dictionary</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Keywords -->
+                <div class="dict-card glass p-6 rounded-2xl border-t-2 border-primary/40 space-y-4 reveal">
+                    <h3 class="text-primary font-black text-xl uppercase">Keywords</h3>
+                    <code class="block bg-black/40 p-2 rounded text-secondary text-sm">"def" | "if" | "while" | "return"</code>
+                    <p class="text-xs text-white/60">Reserved words defining structural control flow.</p>
+                </div>
+                <!-- Identifiers -->
+                <div class="dict-card glass p-6 rounded-2xl border-t-2 border-secondary/40 space-y-4 reveal">
+                    <h3 class="text-secondary font-black text-xl uppercase">Identifiers</h3>
+                    <code class="block bg-black/40 p-2 rounded text-primary text-sm">[a-zA-Z_][a-zA-Z0-9_]*</code>
+                    <p class="text-xs text-white/60">User-defined labels for variables and functions.</p>
+                </div>
+                <!-- Numbers -->
+                <div class="dict-card glass p-6 rounded-2xl border-t-2 border-white/40 space-y-4 reveal">
+                    <h3 class="text-white font-black text-xl uppercase">Numbers</h3>
+                    <code class="block bg-black/40 p-2 rounded text-secondary text-sm">[0-9]+(\.[0-9]+)?</code>
+                    <p class="text-xs text-white/60">Integer and floating-point numeric literals.</p>
+                </div>
+                <!-- Strings -->
+                <div class="dict-card glass p-6 rounded-2xl border-t-2 border-primary/40 space-y-4 reveal">
+                    <h3 class="text-primary font-black text-xl uppercase">Strings</h3>
+                    <code class="block bg-black/40 p-2 rounded text-secondary text-sm">\"([^\\\"]|\\.)*\"</code>
+                    <p class="text-xs text-white/60">Character sequences enclosed in quotes.</p>
+                </div>
+                <!-- Operators -->
+                <div class="dict-card glass p-6 rounded-2xl border-t-2 border-secondary/40 space-y-4 reveal">
+                    <h3 class="text-secondary font-black text-xl uppercase">Operators</h3>
+                    <code class="block bg-black/40 p-2 rounded text-primary text-sm">"+" | "-" | "*" | "/" | "=="</code>
+                    <p class="text-xs text-white/60">Symbols for mathematical and logical operations.</p>
+                </div>
+                <!-- Punctuation -->
+                <div class="dict-card glass p-6 rounded-2xl border-t-2 border-white/40 space-y-4 reveal">
+                    <h3 class="text-white font-black text-xl uppercase">Punctuation</h3>
+                    <code class="block bg-black/40 p-2 rounded text-secondary text-sm">":" | "(" | ")" | "[" | "]"</code>
+                    <p class="text-xs text-white/60">Structural delimiters and separators.</p>
+                </div>
+                <!-- Comments -->
+                <div class="dict-card glass p-6 rounded-2xl border-t-2 border-primary/40 space-y-4 reveal">
+                    <h3 class="text-primary font-black text-xl uppercase">Comments</h3>
+                    <code class="block bg-black/40 p-2 rounded text-secondary text-sm">#[^\n]*</code>
+                    <p class="text-xs text-white/60">Annotations ignored by the analyzer.</p>
+                </div>
+                <!-- Errors -->
+                <div class="dict-card glass p-6 rounded-2xl border-t-2 border-red-500/40 space-y-4 reveal">
+                    <h3 class="text-red-500 font-black text-xl uppercase">Errors</h3>
+                    <code class="block bg-black/40 p-2 rounded text-white text-sm">. (Catch-all)</code>
+                    <p class="text-xs text-white/60">Invalid characters flagged for manual review.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="space-y-12 pb-20">
+            <h2 class="text-3xl font-headline font-bold uppercase tracking-tight border-l-4 border-secondary pl-6">How it Works</h2>
+            <div class="flex flex-col md:flex-row justify-between gap-12 items-center">
+                <div class="text-center space-y-4 max-w-xs">
+                    <div class="w-20 h-20 glass rounded-full flex items-center justify-center mx-auto text-primary text-3xl font-black">01</div>
+                    <h4 class="font-headline font-bold text-xl uppercase">Input Stream</h4>
+                    <p class="text-xs text-white/40 uppercase tracking-widest">The raw code is fed into the PyLex Engine as a continuous stream of characters.</p>
+                </div>
+                <div class="hidden md:block h-0.5 w-20 bg-gradient-to-r from-primary to-secondary"></div>
+                <div class="text-center space-y-4 max-w-xs">
+                    <div class="w-20 h-20 glass rounded-full flex items-center justify-center mx-auto text-secondary text-3xl font-black">02</div>
+                    <h4 class="font-headline font-bold text-xl uppercase">Regex Matching</h4>
+                    <p class="text-xs text-white/40 uppercase tracking-widest">Flex utilizes finite state automata to match the longest possible patterns against predefined regex.</p>
+                </div>
+                <div class="hidden md:block h-0.5 w-20 bg-gradient-to-r from-secondary to-white/40"></div>
+                <div class="text-center space-y-4 max-w-xs">
+                    <div class="w-20 h-20 glass rounded-full flex items-center justify-center mx-auto text-white text-3xl font-black">03</div>
+                    <h4 class="font-headline font-bold text-xl uppercase">Token Stream</h4>
+                    <p class="text-xs text-white/40 uppercase tracking-widest">Successful matches are emitted as structured tokens (Type, Value, Line) for the backend.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-12 px-6 sm:px-12 border-t border-white/10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
+            <div class="space-y-2">
+                <span class="opacity-40 text-xs font-bold uppercase tracking-[0.2em]">© 2026 LEXICAL LAB</span>
+                <p class="text-[10px] text-white/20 uppercase tracking-widest font-medium">Mastering Lexical Grammar</p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-x-8 gap-y-4 opacity-40 text-xs font-bold uppercase tracking-[0.2em]">
+                <a href="#" class="hover:text-primary transition-colors">GITHUB</a>
+                <a href="#" class="hover:text-primary transition-colors">DOCUMENTATION</a>
+                <a href="#" class="hover:text-primary transition-colors">PRIVACY</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Register ScrollTrigger
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Background Animation
+        function animateBlobs() {
+            const blobs = ['#blob1', '#blob2', '#blob3'];
+            blobs.forEach(blob => {
+                gsap.to(blob, {
+                    x: "random(-100, 100)",
+                    y: "random(-100, 100)",
+                    duration: "random(10, 20)",
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut"
+                });
+            });
+        }
+        animateBlobs();
+
+        // Navbar Fluidity
+        const navIndicator = document.getElementById('navIndicator');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const navbar = document.getElementById('navbar');
+
+        function updateIndicator(el) {
+            navIndicator.style.width = `${el.offsetWidth}px`;
+            navIndicator.style.left = `${el.offsetLeft}px`;
+        }
+
+        // Initialize indicator position
+        const activeLink = document.querySelector('.nav-link.text-primary') || document.querySelector('.nav-link');
+        if (activeLink) updateIndicator(activeLink);
+
+        navLinks.forEach(link => {
+            link.addEventListener('mouseenter', (e) => updateIndicator(e.target));
+            link.addEventListener('mouseleave', () => {
+                const active = document.querySelector('.nav-link.text-primary');
+                if (active) updateIndicator(active);
+            });
+        });
+
+        // Scroll Effects
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('py-2');
+                navbar.querySelector('.max-w-4xl').classList.remove('mt-6');
+                navbar.querySelector('.glass').classList.add('rounded-none', 'md:rounded-full', 'max-w-full');
+            } else {
+                navbar.classList.remove('py-2');
+                navbar.querySelector('.max-w-4xl').classList.add('mt-6');
+                navbar.querySelector('.glass').classList.remove('rounded-none');
+            }
+        });
+
+        // Mobile Menu Logic
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuBackdrop = document.getElementById('mobileMenuBackdrop');
+        const menuIcon = document.getElementById('menuIcon');
+        
+        if (mobileMenuBtn && mobileMenu && mobileMenuBackdrop) {
+            const toggleMenu = () => {
+                const isOpen = !mobileMenu.classList.contains('hidden');
+                mobileMenu.classList.toggle('hidden');
+                mobileMenuBackdrop.classList.toggle('hidden');
+                menuIcon.textContent = isOpen ? 'menu' : 'close';
+                document.body.style.overflow = isOpen ? 'auto' : 'hidden';
+                
+                if (!isOpen) {
+                    gsap.from("#mobileMenu", { y: -20, opacity: 0, duration: 0.4, ease: "power3.out" });
+                }
+            };
+
+            mobileMenuBtn.addEventListener('click', toggleMenu);
+            mobileMenuBackdrop.addEventListener('click', toggleMenu);
+        }
+
+        // Page Load Animations
+        window.addEventListener('load', () => {
+            const tl = gsap.timeline({ defaults: { ease: "power4.out", duration: 1.2 }});
+            
+            tl.to("#navbar", { opacity: 1, y: 0, duration: 1 })
+              .to("#heroHeader", { opacity: 1, y: 0, duration: 1.5 }, "-=0.5");
+
+            // Scroll Reveal for Dictionary Header
+            gsap.to("#dictHeader", {
+                scrollTrigger: {
+                    trigger: "#dictHeader",
+                    start: "top 90%",
+                },
+                opacity: 1,
+                y: 0,
+                duration: 1
+            });
+
+            // Scroll Reveal for Dictionary Cards
+            gsap.utils.toArray(".dict-card").forEach((card, i) => {
+                gsap.to(card, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 90%",
+                    },
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    delay: (i % 4) * 0.1,
+                    ease: "power2.out"
+                });
+            });
+
+            // Scroll Reveal for Steps
+            gsap.utils.toArray("main section:last-child > div > div").forEach((step, i) => {
+                gsap.from(step, {
+                    scrollTrigger: {
+                        trigger: step,
+                        start: "top 90%",
+                    },
+                    opacity: 0,
+                    scale: 0.9,
+                    y: 20,
+                    duration: 0.8,
+                    delay: i * 0.2,
+                    ease: "power3.out"
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

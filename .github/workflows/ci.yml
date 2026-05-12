@@ -1,0 +1,41 @@
+name: PyLex CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+
+    - name: Install System Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y flex gcc
+
+    - name: Install Python Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest # For running tests more easily
+
+    - name: Compile Lexer
+      run: |
+        mkdir -p bin
+        flex -o bin/lex.yy.c src/lexer/lexer.l
+        gcc bin/lex.yy.c -o bin/lexer -lfl
+
+    - name: Run Tests
+      run: |
+        export PYTHONPATH=$PYTHONPATH:.
+        python -m unittest discover tests

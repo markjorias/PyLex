@@ -1,0 +1,13 @@
+venv/
+.git/
+.github/
+.vscode/
+__pycache__/
+*.pyc
+.gitignore
+Dockerfile
+.dockerignore
+bin/lexer
+bin/lex.yy.c
+.vercel
+vercel.json
