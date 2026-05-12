@@ -27,7 +27,6 @@ ENV/
 
 # PyLex Specific
 bin/lexer
-bin/lex.yy.c
 lex.yy.c
 
 # IDEs
