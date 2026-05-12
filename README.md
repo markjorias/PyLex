@@ -1,10 +1,12 @@
-# PyLex: Precision Python Lexical Analysis
+# PyLex: Python Lexical Analyzer
 
 PyLex is a high-performance lexical analyzer for Python, powered by Flex and Flask. It provides a real-time, interactive environment to visualize and dissect Python syntax into its foundational tokens.
 
 ![Version](https://img.shields.io/badge/version-2.1.0-ff00ff)
 ![Tech](https://img.shields.io/badge/tech-Flex%20%7C%20Flask%20%7C%20GSAP-00ffff)
 ![Deployment](https://img.shields.io/badge/deploy-Vercel%20%7C%20Docker-white)
+
+**🌐 Live Demo:** [https://pylex-flex.vercel.app](https://pylex-flex.vercel.app)
 
 ---
 
@@ -19,7 +21,7 @@ PyLex operates as an industrial-grade engine for tokenizing Python code. It tran
 ## Core Modules
 
 ### Lexical Lab
-An interactive environment for real-time token decomposition. It provides immediate visual reconstruction and detailed tabular analysis of the inputted code, highlighting identifiers, keywords, high-precision literals, and operators.
+An interactive environment for real-time token decomposition. It provides immediate visual reconstruction and detailed tabular analysis of the inputted code, highlighting identifiers, keywords, literals, and operators.
 
 <p align="center">
   <img src="docs/LAB.png" alt="Lexical Lab Interface" width="800">
@@ -95,7 +97,7 @@ vercel deploy
 ```
 
 ## Quality Assurance
-Execute the integration test suite to verify lexer accuracy, token precision, and system stability across various Python syntax edge cases.
+Execute the integration test suite to verify lexer accuracy and system stability across various Python syntax edge cases.
 ```bash
 python -m unittest discover tests
 ```

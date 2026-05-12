@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.1] - 2026-05-13
+
+### Added
+- **Documentation**:
+    - Embedded UI screenshots (`HOME.png`, `LAB.png`, `LAB-SAMPLE-OUTPUT.png`, `ACADEMY.png`) directly into `README.md` for a better visual overview.
+    - Added the live Vercel demo URL (`https://pylex-flex.vercel.app`) to the repository documentation.
+
 ## [2.1.0] - 2026-05-13
 
 ### Added
