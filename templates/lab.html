@@ -325,10 +325,10 @@
 
             try {
                 const response = await fetch('/tokenize', { method: 'POST', body: formData });
-                const data = await response.json();
                 const endTime = performance.now();
 
                 if (response.ok) {
+                    const data = await response.json();
                     const visualOutput = document.getElementById('visualOutput');
                     let lastLine = 1;
 
@@ -379,12 +379,19 @@
                     document.getElementById('tokenCount').textContent = `${data.length} TOKENS FOUND`;
                     document.getElementById('latency').textContent = `${Math.round(endTime - startTime)}MS LATENCY`;
                 } else {
-                    const errData = await response.json();
-                    alert(`Error: ${errData.error}\nDetails: ${errData.details || 'Unknown error'}`);
+                    let errorMessage = "Unknown error occurred";
+                    try {
+                        const errData = await response.json();
+                        errorMessage = `Error: ${errData.error}\nDetails: ${errData.details || ''}`;
+                    } catch (e) {
+                        const errText = await response.text();
+                        errorMessage = `Server Error (${response.status}):\n${errText.substring(0, 200)}`;
+                    }
+                    alert(errorMessage);
                 }
             } catch (error) {
                 console.error(error);
-                alert("Critical Error: Failed to communicate with the Lexer Engine.");
+                alert("Critical Error: Failed to communicate with the Lexer Engine.\n" + error.message);
             } finally {
                 tokenizeBtn.disabled = false;
                 tokenizeBtn.innerHTML = '<span class="material-symbols-outlined">analytics</span> ANALYZE TOKENS';
