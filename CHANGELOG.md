@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.2.1] - 2026-05-13
+
+### Added
+- **Liquid Glass Navigation**:
+    - Implemented a "Liquid Glass" navigation header that blends fully with the page at the top and gains definition on scroll.
+    - Added smart sliding indicator behavior: highlights only appear on hover or scroll, with a graceful fade-out after returning to the active position.
+- **Mobile UX Refinements**:
+    - Restored and enhanced mobile menu backdrop with `backdrop-blur-md` for improved visual depth.
+    - Implemented dynamic brand text on mobile that updates to "ACADEMY" or "LAB" based on the current context.
+
 ## [2.2.0] - 2026-05-13
 
 ### Added
