@@ -146,10 +146,22 @@
             </div>
 
             <div id="controls" class="flex flex-col items-center gap-6 opacity-0 translate-y-10">
-                <button id="tokenizeBtn" class="glow-button bg-primary text-white font-headline font-black px-12 py-5 rounded-full text-xl uppercase tracking-wider transition-all hover:scale-105 active:scale-95 flex items-center gap-3">
-                    <span class="material-symbols-outlined">analytics</span>
-                    Analyze Tokens
-                </button>
+                <div class="flex items-center justify-center gap-4 w-full max-w-2xl px-4">
+                    <input type="file" id="fileInput" accept=".py" class="hidden">
+                    <button id="uploadBtn" title="Upload Python File" class="bg-white/10 text-white font-headline font-bold p-5 rounded-full text-lg uppercase tracking-wider border border-white/10 transition-all hover:bg-white/20 active:scale-95 flex items-center justify-center shrink-0">
+                        <span class="material-symbols-outlined">upload_file</span>
+                    </button>
+
+                    <button id="tokenizeBtn" class="glow-button bg-primary text-white font-headline font-black px-10 md:px-12 py-5 rounded-full text-xl uppercase tracking-wider transition-all hover:scale-105 active:scale-95 flex items-center gap-3 grow justify-center">
+                        <span class="material-symbols-outlined">analytics</span>
+                        Analyze
+                    </button>
+
+                    <button id="clearBtn" title="Clear Laboratory" class="bg-white/10 text-white font-headline font-bold p-5 rounded-full text-lg uppercase tracking-wider border border-white/10 transition-all hover:bg-white/20 active:scale-95 flex items-center justify-center shrink-0">
+                        <span class="material-symbols-outlined">delete_sweep</span>
+                    </button>
+                </div>
+                
                 <div id="status" class="flex gap-4 text-[10px] font-label text-on-surface-variant/60 tracking-widest uppercase">
                     <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-green-500"></span> Live Mode</span>
                     <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-secondary"></span> Auto-Tokenizing</span>
@@ -211,7 +223,7 @@
                 <p class="text-[10px] text-white/20 uppercase tracking-widest font-medium">Experimental Lexical Laboratory</p>
             </div>
             <div class="flex flex-wrap justify-center gap-x-8 gap-y-4 opacity-40 text-xs font-bold uppercase tracking-[0.2em]">
-                <a href="#" class="hover:text-primary transition-colors">GITHUB</a>
+                <a href="https://github.com/markjorias/PyLex" class="hover:text-primary transition-colors">GITHUB</a>
                 <a href="#" class="hover:text-primary transition-colors">DOCUMENTATION</a>
                 <a href="#" class="hover:text-primary transition-colors">PRIVACY</a>
             </div>
@@ -305,6 +317,38 @@
             mobileMenuBackdrop.addEventListener('click', toggleMenu);
         }
 
+        // File Upload Handling
+        const uploadBtn = document.getElementById('uploadBtn');
+        const fileInput = document.getElementById('fileInput');
+        const codeTextArea = document.getElementById('code');
+
+        uploadBtn.addEventListener('click', () => fileInput.click());
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                codeTextArea.value = event.target.result;
+                // Optional: Trigger analysis immediately after upload
+                // document.getElementById('tokenizeBtn').click();
+            };
+            reader.readAsText(file);
+        });
+
+        // Clear Handling
+        const clearBtn = document.getElementById('clearBtn');
+        clearBtn.addEventListener('click', () => {
+            codeTextArea.value = '';
+            document.getElementById('tokenTable').querySelector('tbody').innerHTML = '';
+            document.getElementById('visualOutput').innerHTML = '';
+            document.getElementById('resultsContainer').style.display = 'none';
+            document.getElementById('tokenCount').textContent = '0 TOKENS FOUND';
+            document.getElementById('latency').textContent = '0MS LATENCY';
+            fileInput.value = ''; // Reset file input so same file can be uploaded again
+        });
+
         document.getElementById('tokenizeBtn').addEventListener('click', async () => {
             const code = document.getElementById('code').value;
             const resultsContainer = document.getElementById('resultsContainer');
@@ -331,6 +375,8 @@
                     const data = await response.json();
                     const visualOutput = document.getElementById('visualOutput');
                     let lastLine = 1;
+                    let indentLevel = 0;
+                    let isFirstTokenOnLine = true;
 
                     resultsContainer.style.display = 'block';
                     
@@ -363,16 +409,25 @@
                         if (token.line > lastLine) {
                             visualOutput.appendChild(document.createElement('br'));
                             lastLine = token.line;
+                            isFirstTokenOnLine = true;
                         }
 
-                        if (token.type !== 'INDENT' && token.type !== 'DEDENT') {
+                        if (token.type === 'INDENT') {
+                            indentLevel++;
+                        } else if (token.type === 'DEDENT') {
+                            indentLevel = Math.max(0, indentLevel - 1);
+                        } else {
                             const span = document.createElement('span');
                             span.className = getTextColorClass(token.type) + " mr-1 px-1 rounded transition-all hover:bg-white/10 cursor-help opacity-0";
+                            if (isFirstTokenOnLine && indentLevel > 0) {
+                                span.style.marginLeft = `${indentLevel * 32}px`;
+                            }
                             span.title = token.type;
                             span.textContent = token.value;
                             visualOutput.appendChild(span);
                             
                             gsap.to(span, { opacity: 1, duration: 0.3, delay: index * 0.01 });
+                            isFirstTokenOnLine = false;
                         }
                     });
                     

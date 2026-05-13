@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.2.0] - 2026-05-13
+
+### Added
+- **Laboratory Enhancements**:
+    - Implemented Python file upload support (`.py`) directly into the Lexical Lab editor.
+    - Added a "Clear" functionality to reset the editor state and analysis results instantly.
+- **Indentation Awareness**:
+    - Enhanced "Visual Transformation" to support semantic indentation, correctly rendering `INDENT` and `DEDENT` structural levels using responsive margins.
+
+### Changed
+- **UI & Layout**:
+    - Redesigned Lab control panel with a centered "Analyze" button and symmetrical icon-only "Upload" and "Clear" controls.
+    - Renamed "Analyze Tokens" to "Analyze" for a cleaner, more direct interface.
+    - Standardized side-button styling with unified glass-morphism effects.
+- **Connectivity**:
+    - Linked all "GITHUB" footer buttons to the official repository at `https://github.com/markjorias/PyLex`.
+
 ## [2.1.1] - 2026-05-13
 
 ### Added
