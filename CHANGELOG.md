@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.2.3] - 2026-05-13
+
+### Changed
+- **Documentation**:
+    - Updated `README.md` with high-resolution desktop screenshots (`DESKTOP-HOME.png`, `DESKTOP-LAB.png`, `DESKTOP-LAB-RESULTS.png`, `DESKTOP-ACADEMY.png`).
+    - Added a "Responsive Interface" section to `README.md` showcasing mobile optimization with `MOBILE-HOME.jpeg` and `MOBILE-LAB.jpeg`.
+
 ## [2.2.2] - 2026-05-13
 
 ### Fixed
