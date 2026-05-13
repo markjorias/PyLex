@@ -7,11 +7,12 @@ PyLex is a high-performance lexical analyzer for Python, powered by Flex and Fla
 ![Deployment](https://img.shields.io/badge/deploy-Vercel%20%7C%20Docker-white)
 
 **🌐 Live Demo:** [https://pylex-flex.vercel.app](https://pylex-flex.vercel.app)  
-**📺 Video Demo:** [Watch on YouTube](https://www.youtube.com/watch?v=your-video-id)
+**📺 Video Demo:** [Watch on YouTube](https://youtu.be/sA_NWbcas8I)
 
 ---
 
 ## Table of Contents
+
 - [System Overview](#system-overview)
 - [How It Works](#how-it-works)
 - [Example Usage](#example-usage)
@@ -66,26 +67,27 @@ To analyze a Python function, follow these steps in the Lexical Lab:
 
 PyLex implements a comprehensive subset of the Python 3.13 lexical specification:
 
-| Category | Description | Examples / Details |
-| :--- | :--- | :--- |
-| **Keywords** | Reserved words in Python 3.13 | `def`, `if`, `else`, `try`, `except`, `async`, `await`, `lambda`, etc. |
-| **Identifiers** | Standard naming conventions | Letters/underscores followed by alphanumeric characters. |
-| **Integers** | Whole number literals | Decimal, Hex (`0x`), Binary (`0b`), Octal (`0o`), Underscores (`1_000`). |
-| **Floating Point** | Decimal point literals | Standard decimal and scientific notation (e.g., `3.14e-10`). |
-| **Complex** | Imaginary number literals | Imaginary literals such as `5j`, `3.14J`, or `10.5j`. |
-| **Strings** | Textual data literals | Single, double, and triple-quoted. Prefixes: `r` (raw), `b` (bytes), `f` (format). |
-| **Booleans & None** | Literal constants | Dedicated recognition for `True`, `False`, and `None`. |
-| **Comments** | Single-line explanations | Recognition of `#` style comments and inline annotations. |
-| **Operators** | Functional symbols | Arithmetic (`+`, `**`, `//`), Assignment (`+=`), Comparison (`==`), Bitwise. |
-| **Indentation** | Structural whitespace | `INDENT` and `DEDENT` tokens tracking block level structure. |
-| **Punctuation** | Syntax delimiters | Delimiters like `(`, `)`, `[`, `]`, `{`, `}`, `:`, `,`, `.`, `;`, `->`, `...`. |
-| **Error Handling** | Lexical validation | Detection of invalid characters and improper indentation levels. |
+| Category            | Description                   | Examples / Details                                                                 |
+| :------------------ | :---------------------------- | :--------------------------------------------------------------------------------- |
+| **Keywords**        | Reserved words in Python 3.13 | `def`, `if`, `else`, `try`, `except`, `async`, `await`, `lambda`, etc.             |
+| **Identifiers**     | Standard naming conventions   | Letters/underscores followed by alphanumeric characters.                           |
+| **Integers**        | Whole number literals         | Decimal, Hex (`0x`), Binary (`0b`), Octal (`0o`), Underscores (`1_000`).           |
+| **Floating Point**  | Decimal point literals        | Standard decimal and scientific notation (e.g., `3.14e-10`).                       |
+| **Complex**         | Imaginary number literals     | Imaginary literals such as `5j`, `3.14J`, or `10.5j`.                              |
+| **Strings**         | Textual data literals         | Single, double, and triple-quoted. Prefixes: `r` (raw), `b` (bytes), `f` (format). |
+| **Booleans & None** | Literal constants             | Dedicated recognition for `True`, `False`, and `None`.                             |
+| **Comments**        | Single-line explanations      | Recognition of `#` style comments and inline annotations.                          |
+| **Operators**       | Functional symbols            | Arithmetic (`+`, `**`, `//`), Assignment (`+=`), Comparison (`==`), Bitwise.       |
+| **Indentation**     | Structural whitespace         | `INDENT` and `DEDENT` tokens tracking block level structure.                       |
+| **Punctuation**     | Syntax delimiters             | Delimiters like `(`, `)`, `[`, `]`, `{`, `}`, `:`, `,`, `.`, `;`, `->`, `...`.     |
+| **Error Handling**  | Lexical validation            | Detection of invalid characters and improper indentation levels.                   |
 
 ---
 
 ## Core Modules
 
 ### Lexical Lab
+
 An interactive environment for real-time token decomposition. It provides immediate visual reconstruction and detailed tabular analysis of the inputted code, highlighting identifiers, keywords, literals, and operators.
 
 <p align="center">
@@ -93,6 +95,7 @@ An interactive environment for real-time token decomposition. It provides immedi
 </p>
 
 ### The Lexer Academy
+
 A technical reference dictionary detailing Python's lexical grammar. It provides the regular expression patterns used by the engine for various token classifications, serving as educational material for compiler design and finite automata.
 
 <p align="center">
@@ -100,6 +103,7 @@ A technical reference dictionary detailing Python's lexical grammar. It provides
 </p>
 
 ### Responsive Interface
+
 The platform is fully optimized for mobile devices, ensuring a consistent and high-performance lexical analysis experience across all screen sizes.
 
 <p align="center">
@@ -111,21 +115,25 @@ The platform is fully optimized for mobile devices, ensuring a consistent and hi
 
 ## Technical Stack
 
--   **Lexical Engine**: Flex (Lexer Generator) and GCC (C Compiler)
--   **Backend Architecture**: Python 3.13 and Flask Framework
--   **Frontend Presentation**: Tailwind CSS and GSAP (GreenSock Animation Platform)
--   **Deployment & CI/CD**: Docker, GitHub Actions, Vercel Serverless Functions
+- **Lexical Engine**: Flex (Lexer Generator) and GCC (C Compiler)
+- **Backend Architecture**: Python 3.13 and Flask Framework
+- **Frontend Presentation**: Tailwind CSS and GSAP (GreenSock Animation Platform)
+- **Deployment & CI/CD**: Docker, GitHub Actions, Vercel Serverless Functions
 
 ## Installation and Setup
 
 ### 1. System Prerequisites
+
 Ensure Flex and GCC are installed on the host system to compile the lexer engine.
+
 ```bash
 sudo apt-get install flex gcc # Ubuntu/Debian
 ```
 
 ### 2. Environment Configuration
+
 Clone the repository and initialize the Python virtual environment.
+
 ```bash
 git clone <your-repo-url>
 cd flex_fproject
@@ -136,7 +144,9 @@ pip install -r requirements.txt
 ```
 
 ### 3. Compilation and Execution
+
 Compile the Flex specification and start the Flask server.
+
 ```bash
 # Compile the Flex specification
 mkdir -p bin
@@ -146,6 +156,7 @@ gcc bin/lex.yy.c -o bin/lexer -lfl
 # Start the application
 python app.py
 ```
+
 The application will be accessible at `http://127.0.0.1:5000`.
 
 ---
@@ -153,26 +164,34 @@ The application will be accessible at `http://127.0.0.1:5000`.
 ## Deployment Architectures
 
 ### Containerized Deployment (Docker)
+
 The project includes a multi-stage Dockerfile optimized for production runtime environments, isolating the build process from the final slim image.
+
 ```bash
 docker build -t pylex .
 docker run -p 5000:5000 pylex
 ```
 
 ### Serverless Deployment (Vercel)
+
 The repository is pre-configured for Vercel Serverless Functions. The pre-compiled binary is tracked to ensure immediate execution in cloud environments without build-time compilation dependencies.
+
 ```bash
 vercel deploy
 ```
 
 ## Quality Assurance
+
 Execute the integration test suite to verify lexer accuracy and system stability across various Python syntax edge cases.
+
 ```bash
 python -m unittest discover tests
 ```
 
 ## Documentation
+
 For a detailed history of updates, infrastructural changes, and architectural refinements, please refer to the [CHANGELOG.md](CHANGELOG.md).
 
 ---
+
 Copyright 2026 Lexical Lab. Experimental Python Grammar Engine.
