@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.2.2] - 2026-05-13
+
+### Fixed
+- **Visual Integrity**:
+    - Restored and unified glass-morphism effects across all cards and panels (`dict-card`, `feature-card`, and Lab results).
+    - Isolated navbar transparency to a specialized `.nav-glass` class to prevent style leakage to other page components.
+    - Added smooth CSS transitions to all glass elements for a more fluid "liquid" aesthetic.
+
 ## [2.2.1] - 2026-05-13
 
 ### Added

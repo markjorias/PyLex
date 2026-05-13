@@ -43,10 +43,21 @@
             pointer-events: none;
         }
         .glass {
-            background: rgba(255, 255, 255, 0);
-            backdrop-filter: blur(0px);
-            border: 1px solid rgba(255, 255, 255, 0);
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .nav-glass {
+            background: rgba(255, 255, 255, 0) !important;
+            backdrop-filter: blur(0px) !important;
+            border: 1px solid rgba(255, 255, 255, 0) !important;
         }
         .glass-active {
             background: rgba(255, 255, 255, 0.08);
@@ -65,7 +76,7 @@
 
     <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 opacity-0 -translate-y-4">
         <div class="max-w-4xl mx-auto mt-6 px-4 transition-all duration-500">
-            <div id="navContainer" class="glass rounded-full px-2 h-16 flex justify-between items-center relative">
+            <div id="navContainer" class="nav-glass rounded-full px-2 h-16 flex justify-between items-center relative transition-all duration-500">
                 <!-- Brand -->
                 <a href="/" id="navBrand" class="pl-6 text-xl font-headline font-black tracking-tighter text-primary uppercase italic shrink-0">PyLex</a>
                 
@@ -220,12 +231,14 @@
                 navbar.classList.add('py-2');
                 navbar.querySelector('.max-w-4xl').classList.remove('mt-6');
                 navContainer.classList.add('glass-active', 'rounded-none', 'md:rounded-full', 'max-w-full');
+                navContainer.classList.remove('nav-glass');
                 navIndicator.classList.remove('opacity-0', 'scale-95');
                 navIndicator.classList.add('opacity-100', 'scale-100');
             } else {
                 navbar.classList.remove('py-2');
                 navbar.querySelector('.max-w-4xl').classList.add('mt-6');
                 navContainer.classList.remove('glass-active', 'rounded-none');
+                navContainer.classList.add('nav-glass');
                 if (!Array.from(navLinks).some(l => l.matches(':hover'))) {
                     navIndicator.classList.add('opacity-0', 'scale-95');
                     navIndicator.classList.remove('opacity-100', 'scale-100');
