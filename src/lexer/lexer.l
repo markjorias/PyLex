@@ -144,7 +144,7 @@ FLOAT_PT3   ({DIGIT}(_?{DIGIT})*){EXPONENT}
     /* --- Operators --- */
 
 "**="|"//="|"<<="|">>="|"**"|"//"|"=="|"!="|"<="|">="|"+="|"-="|"*="|"/="|"%="|"@="|"&="|"|="|"^=" |
-"+"|"-"|"*"|"/"|"%"|"="|"<"|">"|"&"|"|"|"^"|"~"|"<<"|">>"|":=" {
+"+"|"-"|"*"|"/"|"%"|"="|"<"|">"|"&"|"|"|"^"|"~"|"<<"|">>"|":="|"@" {
     print_json_token("OPERATOR", yytext);
 }
 
@@ -152,13 +152,13 @@ FLOAT_PT3   ({DIGIT}(_?{DIGIT})*){EXPONENT}
 
 "..." { print_json_token("PUNCTUATION", yytext); }
 
-":"|"("|")"|"["|"]"|"{"|"}"|","|"."|";"|"@"|"->" {
+":"|"("|")"|"["|"]"|"{"|"}"|","|"."|";"|"->" {
     print_json_token("PUNCTUATION", yytext);
 }
 
     /* --- Comments and EOF --- */
 
-#.*             ; 
+#.*             { print_json_token("COMMENT", yytext); }
 
 <<EOF>>         {
                     while (stack_ptr > 0) {

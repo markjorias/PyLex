@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.3.0] - 2026-05-13
+
+### Added
+- **Lexical Engine**:
+    - Implemented recognition for Python comments (`#`), emitting `COMMENT` tokens instead of ignoring them.
+    - Added `test_comments` to the integration test suite to verify accurate comment recognition.
+- **The Lexer Academy**:
+    - Overhauled `templates/academy.html` with a new "Platform Capabilities" section and an interactive "Lexical Dictionary."
+    - Redesigned dictionary cards with glassmorphism effects and external documentation links (GeeksforGeeks and Medium).
+    - Added technical descriptions for all recognized elements, including Constants, Indentation, and Delimiters.
+- **UI & Visualization**:
+    - Added specialized color-coding and italicized styling for `COMMENT` tokens in the Lexical Lab.
+- **Documentation**:
+    - Created `docs/DOCUMENTATION.md`, a formal technical specification detailing system architecture, operational workflows, and recognized lexical elements.
+
+### Changed
+- **Documentation**:
+    - Completely restructured `README.md` with a Table of Contents, "How It Works" architecture overview, and "Example Usage" guide.
+    - Added a YouTube video demo placeholder to `README.md`.
+    - Converted the "Supported Lexical Elements" into a high-visibility table format.
+- **Academy UX**:
+    - Fixed a design regression where the "Keywords" card had a persistent horizontal scrollbar.
+    - Enhanced all dictionary cards with hover-scaling effects and direct links to specialized technical articles.
+
 ## [2.2.3] - 2026-05-13
 
 ### Changed

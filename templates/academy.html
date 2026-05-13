@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Lexer Academy | PyLex</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&family=Geist:wght@300;400;600&family=Geist+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -21,6 +22,7 @@
                     fontFamily: {
                         headline: ["Space Grotesk", "sans-serif"],
                         body: ["Geist", "sans-serif"],
+                        mono: ["Geist Mono", "monospace"],
                     }
                 }
             }
@@ -64,7 +66,20 @@
             border: 1px solid rgba(255, 255, 255, 0.15);
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
-        .reveal { opacity: 0; transform: translateY(20px); }
+        .reveal { opacity: 0; transform: translateY(30px); }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 0, 255, 0.3);
+        }
+        .dict-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .dict-card:hover {
+            transform: scale(1.02);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+        }
     </style>
 </head>
 <body class="motion-bg min-h-screen text-white font-body selection:bg-primary overflow-x-hidden">
@@ -79,9 +94,8 @@
                 <!-- Brand -->
                 <a href="/" id="navBrand" class="pl-6 text-xl font-headline font-black tracking-tighter text-primary uppercase italic shrink-0">PyLex</a>
                 
-                <!-- Desktop Links (Centered with sliding indicator) -->
+                <!-- Desktop Links -->
                 <div id="navLinksWrapper" class="hidden md:flex items-center relative bg-white/5 rounded-full p-1 mx-auto transition-all duration-500">
-                    <!-- Sliding Indicator -->
                     <div id="navIndicator" class="absolute h-[calc(100%-8px)] rounded-full bg-primary/20 border border-primary/30 transition-all duration-500 ease-out pointer-events-none opacity-0 scale-95"></div>
                     
                     <a href="/" class="nav-link relative z-10 px-6 py-2 text-white/60 hover:text-white font-bold uppercase tracking-widest text-[10px] transition-colors duration-300">Home</a>
@@ -96,7 +110,6 @@
                     </button>
                 </div>
                 
-                <!-- Placeholder for desktop alignment -->
                 <div class="hidden md:block w-[80px]"></div>
             </div>
         </div>
@@ -112,106 +125,216 @@
     <!-- Mobile Menu Backdrop -->
     <div id="mobileMenuBackdrop" class="fixed inset-0 bg-black/40 backdrop-blur-md z-40 hidden transition-all duration-300"></div>
 
-    <main class="pt-40 px-12 max-w-7xl mx-auto space-y-20">
-        <section id="heroHeader" class="text-center space-y-4 opacity-0 translate-y-10">
-            <h1 class="text-6xl md:text-8xl font-headline font-black italic tracking-tighter">THE LEXER <span class="text-primary">ACADEMY</span></h1>
-            <p class="text-white/60 text-xl max-w-3xl mx-auto uppercase tracking-widest font-bold">Mastering the Grammar of Python Lexical Analysis</p>
+    <main class="pt-40 px-6 md:px-12 max-w-7xl mx-auto space-y-32">
+        <!-- Hero Section -->
+        <section id="heroHeader" class="text-center space-y-6 opacity-0 translate-y-10">
+            <h1 class="text-6xl md:text-9xl font-headline font-black italic tracking-tighter leading-none">THE LEXER <span class="text-primary">ACADEMY</span></h1>
+            <p class="text-white/60 text-lg md:text-2xl max-w-4xl mx-auto uppercase tracking-[0.2em] font-bold">A comprehensive technical reference for the PyLex engine and Python's lexical grammar.</p>
         </section>
 
+        <!-- Platform Capabilities -->
         <section class="space-y-12">
-            <h2 id="dictHeader" class="text-3xl font-headline font-bold uppercase tracking-tight border-l-4 border-primary pl-6 reveal">Lexical Element Dictionary</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Keywords -->
-                <div class="dict-card glass p-6 rounded-2xl border-t-2 border-primary/40 space-y-4 reveal">
-                    <h3 class="text-primary font-black text-xl uppercase">Keywords</h3>
-                    <code class="block bg-black/40 p-2 rounded text-secondary text-sm">"def" | "if" | "while" | "return"</code>
-                    <p class="text-xs text-white/60">Reserved words defining structural control flow.</p>
+            <div class="space-y-4">
+                <h2 class="text-3xl md:text-5xl font-headline font-black uppercase tracking-tight border-l-8 border-primary pl-6 reveal">What can PyLex do?</h2>
+                <p class="text-white/40 text-sm md:text-base uppercase tracking-widest font-bold reveal">The ultimate toolkit for Python syntax decomposition.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="feature-card glass p-8 rounded-3xl border border-white/10 space-y-4 reveal">
+                    <span class="material-symbols-outlined text-4xl text-primary">bolt</span>
+                    <h3 class="text-xl font-headline font-bold uppercase">Real-time Analysis</h3>
+                    <p class="text-sm text-white/50 leading-relaxed">Experience sub-millisecond tokenization as you type. Our Flex-based engine processes code streams instantly, providing immediate feedback.</p>
                 </div>
-                <!-- Identifiers -->
-                <div class="dict-card glass p-6 rounded-2xl border-t-2 border-secondary/40 space-y-4 reveal">
-                    <h3 class="text-secondary font-black text-xl uppercase">Identifiers</h3>
-                    <code class="block bg-black/40 p-2 rounded text-primary text-sm">[a-zA-Z_][a-zA-Z0-9_]*</code>
-                    <p class="text-xs text-white/60">User-defined labels for variables and functions.</p>
+                <div class="feature-card glass p-8 rounded-3xl border border-white/10 space-y-4 reveal">
+                    <span class="material-symbols-outlined text-4xl text-secondary">account_tree</span>
+                    <h3 class="text-xl font-headline font-bold uppercase">Structural Tracking</h3>
+                    <p class="text-sm text-white/50 leading-relaxed">Unlike basic highlighters, PyLex tracks Python's significant whitespace, emitting INDENT and DEDENT tokens to visualize block structure.</p>
                 </div>
-                <!-- Numbers -->
-                <div class="dict-card glass p-6 rounded-2xl border-t-2 border-white/40 space-y-4 reveal">
-                    <h3 class="text-white font-black text-xl uppercase">Numbers</h3>
-                    <code class="block bg-black/40 p-2 rounded text-secondary text-sm">[0-9]+(\.[0-9]+)?</code>
-                    <p class="text-xs text-white/60">Integer and floating-point numeric literals.</p>
-                </div>
-                <!-- Strings -->
-                <div class="dict-card glass p-6 rounded-2xl border-t-2 border-primary/40 space-y-4 reveal">
-                    <h3 class="text-primary font-black text-xl uppercase">Strings</h3>
-                    <code class="block bg-black/40 p-2 rounded text-secondary text-sm">\"([^\\\"]|\\.)*\"</code>
-                    <p class="text-xs text-white/60">Character sequences enclosed in quotes.</p>
-                </div>
-                <!-- Operators -->
-                <div class="dict-card glass p-6 rounded-2xl border-t-2 border-secondary/40 space-y-4 reveal">
-                    <h3 class="text-secondary font-black text-xl uppercase">Operators</h3>
-                    <code class="block bg-black/40 p-2 rounded text-primary text-sm">"+" | "-" | "*" | "/" | "=="</code>
-                    <p class="text-xs text-white/60">Symbols for mathematical and logical operations.</p>
-                </div>
-                <!-- Punctuation -->
-                <div class="dict-card glass p-6 rounded-2xl border-t-2 border-white/40 space-y-4 reveal">
-                    <h3 class="text-white font-black text-xl uppercase">Punctuation</h3>
-                    <code class="block bg-black/40 p-2 rounded text-secondary text-sm">":" | "(" | ")" | "[" | "]"</code>
-                    <p class="text-xs text-white/60">Structural delimiters and separators.</p>
-                </div>
-                <!-- Comments -->
-                <div class="dict-card glass p-6 rounded-2xl border-t-2 border-primary/40 space-y-4 reveal">
-                    <h3 class="text-primary font-black text-xl uppercase">Comments</h3>
-                    <code class="block bg-black/40 p-2 rounded text-secondary text-sm">#[^\n]*</code>
-                    <p class="text-xs text-white/60">Annotations ignored by the analyzer.</p>
-                </div>
-                <!-- Errors -->
-                <div class="dict-card glass p-6 rounded-2xl border-t-2 border-red-500/40 space-y-4 reveal">
-                    <h3 class="text-red-500 font-black text-xl uppercase">Errors</h3>
-                    <code class="block bg-black/40 p-2 rounded text-white text-sm">. (Catch-all)</code>
-                    <p class="text-xs text-white/60">Invalid characters flagged for manual review.</p>
+                <div class="feature-card glass p-8 rounded-3xl border border-white/10 space-y-4 reveal">
+                    <span class="material-symbols-outlined text-4xl text-white">dataset</span>
+                    <h3 class="text-xl font-headline font-bold uppercase">Detailed Metadata</h3>
+                    <p class="text-sm text-white/50 leading-relaxed">Every token is captured with its literal value, precise type classification, and line number, perfect for debugging or learning compiler design.</p>
                 </div>
             </div>
         </section>
 
-        <section class="space-y-12 pb-20">
-            <h2 class="text-3xl font-headline font-bold uppercase tracking-tight border-l-4 border-secondary pl-6">How it Works</h2>
+        <!-- Lexical Element Dictionary -->
+        <section class="space-y-12">
+            <div class="space-y-4">
+                <h2 id="dictHeader" class="text-3xl md:text-5xl font-headline font-black uppercase tracking-tight border-l-8 border-secondary pl-6 reveal text-right md:text-left">The Dictionary</h2>
+                <p class="text-white/40 text-sm md:text-base uppercase tracking-widest font-bold reveal text-right md:text-left">Every token type supported by our Flex specification.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Keywords -->
+                <a href="https://www.geeksforgeeks.org/python-keywords-and-identifiers/" target="_blank" class="dict-card glass p-8 rounded-3xl border-b-4 border-primary/40 space-y-6 reveal block hover:border-primary">
+                    <div class="flex justify-between items-start">
+                        <h3 class="text-primary font-black text-2xl uppercase italic">Keywords</h3>
+                        <span class="text-[10px] bg-primary/10 text-primary px-3 py-1 rounded-full border border-primary/20 font-bold">RESERVED</span>
+                    </div>
+                    <div class="space-y-2">
+                        <code class="block bg-black/60 p-3 rounded-xl text-secondary text-sm font-mono overflow-hidden">"def" | "if" | "async" | "await" | "lambda"</code>
+                        <p class="text-xs text-white/60 leading-relaxed">Core reserved words that define the structural control flow and logic of Python programs.</p>
+                    </div>
+                </a>
+
+                <!-- Identifiers -->
+                <a href="https://medium.com/python-for-children-and-anyone-else-who-wants-to/python-for-children-4fc94641b656" target="_blank" class="dict-card glass p-8 rounded-3xl border-b-4 border-secondary/40 space-y-6 reveal block hover:border-secondary">
+                    <div class="flex justify-between items-start">
+                        <h3 class="text-secondary font-black text-2xl uppercase italic">Identifiers</h3>
+                        <span class="text-[10px] bg-secondary/10 text-secondary px-3 py-1 rounded-full border border-secondary/20 font-bold">NAMING</span>
+                    </div>
+                    <div class="space-y-2">
+                        <code class="block bg-black/60 p-3 rounded-xl text-primary text-sm font-mono">[a-zA-Z_][a-zA-Z0-9_]*</code>
+                        <p class="text-xs text-white/60 leading-relaxed">User-defined labels for variables, functions, and classes. Must start with a letter or underscore.</p>
+                    </div>
+                </a>
+
+                <!-- Literals: Numbers -->
+                <a href="https://www.geeksforgeeks.org/python-data-types/" target="_blank" class="dict-card glass p-8 rounded-3xl border-b-4 border-white/40 space-y-6 reveal block hover:border-white">
+                    <div class="flex justify-between items-start">
+                        <h3 class="text-white font-black text-2xl uppercase italic">Numbers</h3>
+                        <span class="text-[10px] bg-white/10 text-white px-3 py-1 rounded-full border border-white/20 font-bold">LITERALS</span>
+                    </div>
+                    <div class="space-y-2">
+                        <code class="block bg-black/60 p-3 rounded-xl text-secondary text-xs font-mono">INT: 0x123 | FLOAT: 3.14e-10 | COMPLEX: 5j</code>
+                        <p class="text-xs text-white/60 leading-relaxed">Full support for integers (hex, bin, oct), floating point with scientific notation, and imaginary numbers.</p>
+                    </div>
+                </a>
+
+                <!-- Literals: Strings -->
+                <a href="https://www.geeksforgeeks.org/python-string/" target="_blank" class="dict-card glass p-8 rounded-3xl border-b-4 border-primary/40 space-y-6 reveal block hover:border-primary">
+                    <div class="flex justify-between items-start">
+                        <h3 class="text-primary font-black text-2xl uppercase italic">Strings</h3>
+                        <span class="text-[10px] bg-primary/10 text-primary px-3 py-1 rounded-full border border-primary/20 font-bold">LITERALS</span>
+                    </div>
+                    <div class="space-y-2">
+                        <code class="block bg-black/60 p-3 rounded-xl text-secondary text-xs font-mono whitespace-nowrap overflow-hidden">f"text", r"raw", """triple""", b"bytes"</code>
+                        <p class="text-xs text-white/60 leading-relaxed">Supports single, double, and triple quotes with prefixes for raw, formatted, and byte strings.</p>
+                    </div>
+                </a>
+
+                <!-- Constants: Boolean/None -->
+                <a href="https://www.geeksforgeeks.org/python-data-types/" target="_blank" class="dict-card glass p-8 rounded-3xl border-b-4 border-secondary/40 space-y-6 reveal block hover:border-secondary">
+                    <div class="flex justify-between items-start">
+                        <h3 class="text-secondary font-black text-2xl uppercase italic">Constants</h3>
+                        <span class="text-[10px] bg-secondary/10 text-secondary px-3 py-1 rounded-full border border-secondary/20 font-bold">BUILT-IN</span>
+                    </div>
+                    <div class="space-y-2">
+                        <code class="block bg-black/60 p-3 rounded-xl text-primary text-sm font-mono">True | False | None</code>
+                        <p class="text-xs text-white/60 leading-relaxed">Dedicated recognition for Python's core logical constants and the null representation.</p>
+                    </div>
+                </a>
+
+                <!-- Structural: Indentation -->
+                <a href="https://www.geeksforgeeks.org/indentation-in-python/" target="_blank" class="dict-card glass p-8 rounded-3xl border-b-4 border-white/40 space-y-6 reveal block hover:border-white">
+                    <div class="flex justify-between items-start">
+                        <h3 class="text-white font-black text-2xl uppercase italic">Structure</h3>
+                        <span class="text-[10px] bg-white/10 text-white px-3 py-1 rounded-full border border-white/20 font-bold">BLOCKS</span>
+                    </div>
+                    <div class="space-y-2">
+                        <code class="block bg-black/60 p-3 rounded-xl text-secondary text-sm font-mono">INDENT | DEDENT</code>
+                        <p class="text-xs text-white/60 leading-relaxed">Emitted tokens based on leading whitespace (spaces or tabs), mapping Python's visual block hierarchy.</p>
+                    </div>
+                </a>
+
+                <!-- Operators -->
+                <a href="https://www.geeksforgeeks.org/python-operators/" target="_blank" class="dict-card glass p-8 rounded-3xl border-b-4 border-primary/40 space-y-6 reveal block hover:border-primary">
+                    <div class="flex justify-between items-start">
+                        <h3 class="text-primary font-black text-2xl uppercase italic">Operators</h3>
+                        <span class="text-[10px] bg-primary/10 text-primary px-3 py-1 rounded-full border border-primary/20 font-bold">SYMBOLS</span>
+                    </div>
+                    <div class="space-y-2">
+                        <code class="block bg-black/60 p-3 rounded-xl text-secondary text-xs font-mono whitespace-nowrap overflow-hidden">+, -, **, //, ==, !=, +=, >>=, :=</code>
+                        <p class="text-xs text-white/60 leading-relaxed">Comprehensive set of mathematical, logical, and assignment operators, including walrus and power.</p>
+                    </div>
+                </a>
+
+                <!-- Punctuation -->
+                <a href="https://mike-vincent.medium.com/quarks-outlines-python-delimiters-19256b323453" target="_blank" class="dict-card glass p-8 rounded-3xl border-b-4 border-secondary/40 space-y-6 reveal block hover:border-secondary">
+                    <div class="flex justify-between items-start">
+                        <h3 class="text-secondary font-black text-2xl uppercase italic">Delimiters</h3>
+                        <span class="text-[10px] bg-secondary/10 text-secondary px-3 py-1 rounded-full border border-secondary/20 font-bold">SYMBOLS</span>
+                    </div>
+                    <div class="space-y-2">
+                        <code class="block bg-black/60 p-3 rounded-xl text-primary text-sm font-mono">":", "->", "...", "[", "]"</code>
+                        <p class="text-xs text-white/60 leading-relaxed">Syntax-level delimiters, separators, and type-hinting arrows used in Python grammar.</p>
+                    </div>
+                </a>
+
+                <!-- Comments -->
+                <a href="https://www.geeksforgeeks.org/comments-in-python/" target="_blank" class="dict-card glass p-8 rounded-3xl border-b-4 border-white/40 space-y-6 reveal block hover:border-white">
+                    <div class="flex justify-between items-start">
+                        <h3 class="text-white font-black text-2xl uppercase italic">Comments</h3>
+                        <span class="text-[10px] bg-white/10 text-white px-3 py-1 rounded-full border border-white/20 font-bold">INFO</span>
+                    </div>
+                    <div class="space-y-2">
+                        <code class="block bg-black/60 p-3 rounded-xl text-secondary text-sm font-mono">#.*</code>
+                        <p class="text-xs text-white/60 leading-relaxed">Captured as tokens for structural analysis, these annotations provide developer context within the code.</p>
+                    </div>
+                </a>
+
+                <!-- Errors -->
+                <div class="dict-card glass p-8 rounded-3xl border-b-4 border-red-500/40 space-y-6 reveal">
+                    <div class="flex justify-between items-start">
+                        <h3 class="text-red-500 font-black text-2xl uppercase italic">Errors</h3>
+                        <span class="text-[10px] bg-red-500/10 text-red-500 px-3 py-1 rounded-full border border-red-500/20 font-bold">LEXICAL</span>
+                    </div>
+                    <div class="space-y-2">
+                        <code class="block bg-black/60 p-3 rounded-xl text-white text-sm font-mono">. (Catch-all)</code>
+                        <p class="text-xs text-white/60 leading-relaxed">Characters that do not match any known Python token pattern are flagged for manual review.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Process -->
+        <section class="space-y-16 pb-32">
+            <div class="space-y-4 text-center">
+                <h2 class="text-3xl md:text-5xl font-headline font-black uppercase tracking-tight reveal">The Engine Lifecycle</h2>
+                <p class="text-white/40 text-sm md:text-base uppercase tracking-widest font-bold reveal">How your code becomes data.</p>
+            </div>
+            
             <div class="flex flex-col md:flex-row justify-between gap-12 items-center">
-                <div class="text-center space-y-4 max-w-xs">
-                    <div class="w-20 h-20 glass rounded-full flex items-center justify-center mx-auto text-primary text-3xl font-black">01</div>
-                    <h4 class="font-headline font-bold text-xl uppercase">Input Stream</h4>
-                    <p class="text-xs text-white/40 uppercase tracking-widest">The raw code is fed into the PyLex Engine as a continuous stream of characters.</p>
+                <div class="text-center space-y-6 max-w-xs group">
+                    <div class="w-24 h-24 glass rounded-3xl flex items-center justify-center mx-auto text-primary text-4xl font-black group-hover:scale-110 transition-transform duration-500">01</div>
+                    <h4 class="font-headline font-bold text-2xl uppercase tracking-tighter">Raw Stream</h4>
+                    <p class="text-[10px] text-white/40 uppercase tracking-[0.2em] font-bold leading-relaxed">The source code is ingested as a continuous stream of characters into our compiled C binary.</p>
                 </div>
-                <div class="hidden md:block h-0.5 w-20 bg-gradient-to-r from-primary to-secondary"></div>
-                <div class="text-center space-y-4 max-w-xs">
-                    <div class="w-20 h-20 glass rounded-full flex items-center justify-center mx-auto text-secondary text-3xl font-black">02</div>
-                    <h4 class="font-headline font-bold text-xl uppercase">Regex Matching</h4>
-                    <p class="text-xs text-white/40 uppercase tracking-widest">Flex utilizes finite state automata to match the longest possible patterns against predefined regex.</p>
+                <div class="hidden md:block h-0.5 w-32 bg-gradient-to-r from-primary via-secondary to-transparent opacity-20"></div>
+                <div class="text-center space-y-6 max-w-xs group">
+                    <div class="w-24 h-24 glass rounded-3xl flex items-center justify-center mx-auto text-secondary text-4xl font-black group-hover:scale-110 transition-transform duration-500">02</div>
+                    <h4 class="font-headline font-bold text-2xl uppercase tracking-tighter">Regex Scan</h4>
+                    <p class="text-[10px] text-white/40 uppercase tracking-[0.2em] font-bold leading-relaxed">Finite State Automata match the longest possible patterns against our optimized Flex specification.</p>
                 </div>
-                <div class="hidden md:block h-0.5 w-20 bg-gradient-to-r from-secondary to-white/40"></div>
-                <div class="text-center space-y-4 max-w-xs">
-                    <div class="w-20 h-20 glass rounded-full flex items-center justify-center mx-auto text-white text-3xl font-black">03</div>
-                    <h4 class="font-headline font-bold text-xl uppercase">Token Stream</h4>
-                    <p class="text-xs text-white/40 uppercase tracking-widest">Successful matches are emitted as structured tokens (Type, Value, Line) for the backend.</p>
+                <div class="hidden md:block h-0.5 w-32 bg-gradient-to-r from-transparent via-secondary to-white opacity-20"></div>
+                <div class="text-center space-y-6 max-w-xs group">
+                    <div class="w-24 h-24 glass rounded-3xl flex items-center justify-center mx-auto text-white text-4xl font-black group-hover:scale-110 transition-transform duration-500">03</div>
+                    <h4 class="font-headline font-bold text-2xl uppercase tracking-tighter">JSON Emission</h4>
+                    <p class="text-[10px] text-white/40 uppercase tracking-[0.2em] font-bold leading-relaxed">Matched tokens are mapped to JSON objects and piped back to the UI for color-coded visualization.</p>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="py-12 px-6 sm:px-12 border-t border-white/10">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
-            <div class="space-y-2">
-                <span class="opacity-40 text-xs font-bold uppercase tracking-[0.2em]">© 2026 LEXICAL LAB</span>
-                <p class="text-[10px] text-white/20 uppercase tracking-widest font-medium">Mastering Lexical Grammar</p>
+    <footer class="py-16 px-6 sm:px-12 border-t border-white/10 bg-black/50 backdrop-blur-xl">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12 text-center md:text-left">
+            <div class="space-y-4">
+                <div class="text-2xl font-headline font-black tracking-tighter text-primary uppercase italic">PyLex</div>
+                <div class="space-y-1">
+                    <span class="opacity-40 text-xs font-bold uppercase tracking-[0.3em]">© 2026 LEXICAL LAB</span>
+                    <p class="text-[10px] text-white/20 uppercase tracking-[0.3em] font-medium">Experimental Python Grammar Engine</p>
+                </div>
             </div>
-            <div class="flex flex-wrap justify-center gap-x-8 gap-y-4 opacity-40 text-xs font-bold uppercase tracking-[0.2em]">
-                <a href="https://github.com/markjorias/PyLex" class="hover:text-primary transition-colors">GITHUB</a>
-                <a href="#" class="hover:text-primary transition-colors">DOCUMENTATION</a>
-                <a href="#" class="hover:text-primary transition-colors">PRIVACY</a>
+            <div class="flex flex-wrap justify-center gap-x-12 gap-y-6 opacity-60 text-xs font-bold uppercase tracking-[0.3em]">
+                <a href="https://github.com/markjorias/PyLex" class="hover:text-primary transition-all duration-300 hover:tracking-[0.5em]">GITHUB</a>
+                <a href="/lab" class="hover:text-secondary transition-all duration-300 hover:tracking-[0.5em]">TRY LAB</a>
+                <a href="/" class="hover:text-white transition-all duration-300 hover:tracking-[0.5em]">RESOURCES</a>
             </div>
         </div>
     </footer>
 
     <script>
-        // Register ScrollTrigger
         gsap.registerPlugin(ScrollTrigger);
 
         // Background Animation
@@ -219,9 +342,9 @@
             const blobs = ['#blob1', '#blob2', '#blob3'];
             blobs.forEach(blob => {
                 gsap.to(blob, {
-                    x: "random(-100, 100)",
-                    y: "random(-100, 100)",
-                    duration: "random(10, 20)",
+                    x: "random(-150, 150)",
+                    y: "random(-150, 150)",
+                    duration: "random(15, 25)",
                     repeat: -1,
                     yoyo: true,
                     ease: "sine.inOut"
@@ -230,12 +353,11 @@
         }
         animateBlobs();
 
-        // Navbar Fluidity
+        // Navbar Logic
         const navIndicator = document.getElementById('navIndicator');
         const navLinks = document.querySelectorAll('.nav-link');
         const navbar = document.getElementById('navbar');
         const navContainer = document.getElementById('navContainer');
-        const navLinksWrapper = document.getElementById('navLinksWrapper');
 
         function updateIndicator(el, show = true) {
             navIndicator.style.width = `${el.offsetWidth}px`;
@@ -249,7 +371,6 @@
             }
         }
 
-        // Initialize indicator position
         const activeLink = document.querySelector('.nav-link.text-primary') || document.querySelector('.nav-link');
         if (activeLink) updateIndicator(activeLink, false);
 
@@ -258,19 +379,11 @@
             link.addEventListener('mouseleave', () => {
                 const active = document.querySelector('.nav-link.text-primary');
                 if (active) {
-                    updateIndicator(active, true);
-                    if (window.scrollY <= 50) {
-                        setTimeout(() => {
-                            if (window.scrollY <= 50 && !Array.from(navLinks).some(l => l.matches(':hover'))) {
-                                updateIndicator(active, false);
-                            }
-                        }, 400);
-                    }
+                    updateIndicator(active, window.scrollY > 50);
                 }
             });
         });
 
-        // Scroll Effects
         window.addEventListener('scroll', () => {
             const isScrolled = window.scrollY > 50;
             if (isScrolled) {
@@ -292,26 +405,11 @@
             }
         });
 
-        // Mobile Menu Logic
+        // Mobile Menu
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
         const mobileMenuBackdrop = document.getElementById('mobileMenuBackdrop');
         const menuIcon = document.getElementById('menuIcon');
-        const navBrand = document.getElementById('navBrand');
-
-        function handleMobileBrandText() {
-            if (window.innerWidth < 768) {
-                const path = window.location.pathname;
-                if (path === '/academy') navBrand.textContent = 'ACADEMY';
-                else if (path === '/lab') navBrand.textContent = 'LAB';
-                else navBrand.textContent = 'PyLex';
-            } else {
-                navBrand.textContent = 'PyLex';
-            }
-        }
-
-        window.addEventListener('resize', handleMobileBrandText);
-        handleMobileBrandText();
         
         if (mobileMenuBtn && mobileMenu && mobileMenuBackdrop) {
             const toggleMenu = () => {
@@ -320,67 +418,31 @@
                 mobileMenuBackdrop.classList.toggle('hidden');
                 menuIcon.textContent = isOpen ? 'menu' : 'close';
                 document.body.style.overflow = isOpen ? 'auto' : 'hidden';
-                
-                if (!isOpen) {
-                    gsap.from("#mobileMenu", { y: -20, opacity: 0, duration: 0.4, ease: "power3.out" });
-                    gsap.fromTo("#mobileMenuBackdrop", { opacity: 0 }, { opacity: 1, duration: 0.3 });
-                }
             };
-
             mobileMenuBtn.addEventListener('click', toggleMenu);
             mobileMenuBackdrop.addEventListener('click', toggleMenu);
         }
 
-        // Page Load Animations
+        // Page Load & Scroll Animations
         window.addEventListener('load', () => {
-            const tl = gsap.timeline({ defaults: { ease: "power4.out", duration: 1.2 }});
+            const tl = gsap.timeline({ defaults: { ease: "power4.out", duration: 1 }});
             
-            tl.to("#navbar", { opacity: 1, y: 0, duration: 1 })
-              .to("#heroHeader", { opacity: 1, y: 0, duration: 1.5 }, "-=0.5");
+            tl.to("#navbar", { opacity: 1, y: 0 })
+              .to("#heroHeader", { opacity: 1, y: 0 }, "-=0.5");
 
-            // Scroll Reveal for Dictionary Header
-            gsap.to("#dictHeader", {
-                scrollTrigger: {
-                    trigger: "#dictHeader",
-                    start: "top 90%",
-                },
-                opacity: 1,
-                y: 0,
-                duration: 1
-            });
-
-            // Scroll Reveal for Dictionary Cards
-            gsap.utils.toArray(".dict-card").forEach((card, i) => {
-                gsap.to(card, {
+            gsap.utils.toArray(".reveal").forEach((el) => {
+                gsap.to(el, {
                     scrollTrigger: {
-                        trigger: card,
+                        trigger: el,
                         start: "top 90%",
                     },
                     opacity: 1,
                     y: 0,
-                    duration: 0.8,
-                    delay: (i % 4) * 0.1,
+                    duration: 1,
                     ease: "power2.out"
-                });
-            });
-
-            // Scroll Reveal for Steps
-            gsap.utils.toArray("main section:last-child > div > div").forEach((step, i) => {
-                gsap.from(step, {
-                    scrollTrigger: {
-                        trigger: step,
-                        start: "top 90%",
-                    },
-                    opacity: 0,
-                    scale: 0.9,
-                    y: 20,
-                    duration: 0.8,
-                    delay: i * 0.2,
-                    ease: "power3.out"
                 });
             });
         });
     </script>
-
 </body>
 </html>

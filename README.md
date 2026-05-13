@@ -6,7 +6,22 @@ PyLex is a high-performance lexical analyzer for Python, powered by Flex and Fla
 ![Tech](https://img.shields.io/badge/tech-Flex%20%7C%20Flask%20%7C%20GSAP-00ffff)
 ![Deployment](https://img.shields.io/badge/deploy-Vercel%20%7C%20Docker-white)
 
-**🌐 Live Demo:** [https://pylex-flex.vercel.app](https://pylex-flex.vercel.app)
+**🌐 Live Demo:** [https://pylex-flex.vercel.app](https://pylex-flex.vercel.app)  
+**📺 Video Demo:** [Watch on YouTube](https://www.youtube.com/watch?v=your-video-id)
+
+---
+
+## Table of Contents
+- [System Overview](#system-overview)
+- [How It Works](#how-it-works)
+- [Example Usage](#example-usage)
+- [Supported Lexical Elements](#supported-lexical-elements)
+- [Core Modules](#core-modules)
+- [Technical Stack](#technical-stack)
+- [Installation and Setup](#installation-and-setup)
+- [Deployment Architectures](#deployment-architectures)
+- [Quality Assurance](#quality-assurance)
+- [Documentation](#documentation)
 
 ---
 
@@ -18,6 +33,56 @@ PyLex operates as an industrial-grade engine for tokenizing Python code. It tran
   <img src="docs/DESKTOP-HOME.png" alt="PyLex Home Page" width="800">
 </p>
 
+## How It Works
+
+PyLex leverages a hybrid architecture combining high-level web technologies with low-level systems programming:
+
+1.  **Input Acquisition**: The user enters Python source code into the **Lexical Lab**, a web-based code editor built with Tailwind CSS.
+2.  **Backend Processing**: The Flask server receives the code via a RESTful API endpoint (`/tokenize`).
+3.  **Lexical Analysis**: The backend pipes the raw text into a pre-compiled binary executable (`bin/lexer`). This binary is generated from a **Flex specification** (`src/lexer/lexer.l`), which defines Python's lexical grammar using Regular Expressions and Finite State Automata.
+4.  **Token Stream**: The lexer identifies tokens (keywords, identifiers, etc.) and emits them as a stream of JSON objects, including metadata like line numbers and literal values.
+5.  **Data Visualization**: The frontend parses the JSON stream and dynamically renders a color-coded decomposition of the code alongside a detailed analysis table, powered by **GSAP** for smooth animations.
+
+## Example Usage
+
+To analyze a Python function, follow these steps in the Lexical Lab:
+
+1.  **Navigate** to the **Lab** section from the navigation bar.
+2.  **Enter** the following Python snippet into the editor:
+    ```python
+    def calculate_sum(a, b):
+        # Calculate the result
+        return a + b
+    ```
+3.  **Analyze**: The engine will immediately produce a token breakdown:
+    - `KEYWORD`: `def`, `return`
+    - `IDENTIFIER`: `calculate_sum`, `a`, `b`
+    - `OPERATOR`: `+`
+    - `PUNCTUATION`: `(`, `)`, `:`, `,`
+    - `INDENT`: (Detected indentation for the function body)
+    - `DEDENT`: (Detected return to outer scope)
+
+## Supported Lexical Elements
+
+PyLex implements a comprehensive subset of the Python 3.13 lexical specification:
+
+| Category | Description | Examples / Details |
+| :--- | :--- | :--- |
+| **Keywords** | Reserved words in Python 3.13 | `def`, `if`, `else`, `try`, `except`, `async`, `await`, `lambda`, etc. |
+| **Identifiers** | Standard naming conventions | Letters/underscores followed by alphanumeric characters. |
+| **Integers** | Whole number literals | Decimal, Hex (`0x`), Binary (`0b`), Octal (`0o`), Underscores (`1_000`). |
+| **Floating Point** | Decimal point literals | Standard decimal and scientific notation (e.g., `3.14e-10`). |
+| **Complex** | Imaginary number literals | Imaginary literals such as `5j`, `3.14J`, or `10.5j`. |
+| **Strings** | Textual data literals | Single, double, and triple-quoted. Prefixes: `r` (raw), `b` (bytes), `f` (format). |
+| **Booleans & None** | Literal constants | Dedicated recognition for `True`, `False`, and `None`. |
+| **Comments** | Single-line explanations | Recognition of `#` style comments and inline annotations. |
+| **Operators** | Functional symbols | Arithmetic (`+`, `**`, `//`), Assignment (`+=`), Comparison (`==`), Bitwise. |
+| **Indentation** | Structural whitespace | `INDENT` and `DEDENT` tokens tracking block level structure. |
+| **Punctuation** | Syntax delimiters | Delimiters like `(`, `)`, `[`, `]`, `{`, `}`, `:`, `,`, `.`, `;`, `->`, `...`. |
+| **Error Handling** | Lexical validation | Detection of invalid characters and improper indentation levels. |
+
+---
+
 ## Core Modules
 
 ### Lexical Lab
@@ -27,8 +92,11 @@ An interactive environment for real-time token decomposition. It provides immedi
   <img src="docs/DESKTOP-LAB.png" alt="Lexical Lab Interface" width="800">
 </p>
 
+### The Lexer Academy
+A technical reference dictionary detailing Python's lexical grammar. It provides the regular expression patterns used by the engine for various token classifications, serving as educational material for compiler design and finite automata.
+
 <p align="center">
-  <img src="docs/DESKTOP-LAB-RESULTS.png" alt="Lexical Lab Sample Output" width="800">
+  <img src="docs/DESKTOP-ACADEMY.png" alt="The Lexer Academy" width="800">
 </p>
 
 ### Responsive Interface
@@ -39,21 +107,14 @@ The platform is fully optimized for mobile devices, ensuring a consistent and hi
   <img src="docs/MOBILE-LAB.jpeg" alt="Mobile Lab View" width="300">
 </p>
 
-### The Lexer Academy
-A technical reference dictionary detailing Python's lexical grammar. It provides the regular expression patterns used by the engine for various token classifications, serving as educational material for compiler design and finite automata.
-
-<p align="center">
-  <img src="docs/DESKTOP-ACADEMY.png" alt="The Lexer Academy" width="800">
-</p>
-
 ---
 
 ## Technical Stack
 
-- **Lexical Engine**: Flex (Lexer Generator) and GCC (C Compiler)
-- **Backend Architecture**: Python 3.13 and Flask Framework
-- **Frontend Presentation**: Tailwind CSS and GSAP (GreenSock Animation Platform)
-- **Deployment & CI/CD**: Docker, GitHub Actions, Vercel Serverless Functions
+-   **Lexical Engine**: Flex (Lexer Generator) and GCC (C Compiler)
+-   **Backend Architecture**: Python 3.13 and Flask Framework
+-   **Frontend Presentation**: Tailwind CSS and GSAP (GreenSock Animation Platform)
+-   **Deployment & CI/CD**: Docker, GitHub Actions, Vercel Serverless Functions
 
 ## Installation and Setup
 

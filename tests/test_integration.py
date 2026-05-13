@@ -104,5 +104,17 @@ for i in range(10):
         self.assertIn('INDENT', types)
         self.assertIn('DEDENT', types)
 
+    def test_comments(self):
+        code = "# This is a comment\nx = 10 # Inline comment"
+        response = self.tokenize(code)
+        data = json.loads(response.data)
+        
+        types = [t['type'] for t in data]
+        values = [t['value'] for t in data]
+        
+        self.assertIn('COMMENT', types)
+        self.assertIn('# This is a comment', values)
+        self.assertIn('# Inline comment', values)
+
 if __name__ == '__main__':
     unittest.main()

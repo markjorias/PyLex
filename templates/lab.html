@@ -524,6 +524,7 @@
                 case 'STRING': return 'bg-string/10 text-string border border-string/20';
                 case 'BOOLEAN': return 'bg-indigo-400/10 text-indigo-400 border border-indigo-400/20';
                 case 'NONE': return 'bg-slate-400/10 text-slate-400 border border-slate-400/20';
+                case 'COMMENT': return 'bg-white/5 text-white/40 border border-white/10';
                 case 'OPERATOR': return 'bg-white/10 text-white border border-white/20';
                 case 'INDENT': return 'bg-blue-500/10 text-blue-400 border border-blue-500/20';
                 case 'DEDENT': return 'bg-purple-500/10 text-purple-400 border border-purple-500/20';
@@ -542,6 +543,7 @@
                 case 'STRING': return 'text-string';
                 case 'BOOLEAN': return 'text-indigo-400';
                 case 'NONE': return 'text-slate-400';
+                case 'COMMENT': return 'text-white/40 italic';
                 case 'OPERATOR': return 'text-white font-bold';
                 case 'ERROR': return 'text-red-500 underline decoration-wavy';
                 default: return 'text-white/60';
