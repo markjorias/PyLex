@@ -17,7 +17,7 @@ def compile_lexer_if_needed():
         if os.path.exists(LEXER_SOURCE):
             try:
                 # Use gcc to compile the pre-generated C source
-                subprocess.run(['gcc', LEXER_SOURCE, '-o', LEXER_PATH], check=True, capture_output=True)
+                subprocess.run(['gcc', '-static', LEXER_SOURCE, '-o', LEXER_PATH], check=True, capture_output=True)
                 # Ensure it's executable
                 st = os.stat(LEXER_PATH)
                 os.chmod(LEXER_PATH, st.st_mode | stat.S_IEXEC)

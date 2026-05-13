@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.3.1] - 2026-05-14
+
+### Fixed
+- **Critical Deployment Bug**:
+    - Resolved `libfl.so.2: cannot open shared object file` error that caused lexer execution to fail on Vercel when uploading and analyzing Python files.
+    - Root cause: the `bin/lexer` binary was dynamically linked against the Flex runtime library (`libfl.so.2`), which is not available in Vercel's serverless environment.
+    - Recompiled the lexer binary with the `-static` flag, producing a fully self-contained executable with zero shared library dependencies.
+- **Build Pipeline**:
+    - Updated `vercel-build.sh` to compile with `gcc -static` for serverless compatibility.
+    - Updated `Dockerfile` builder stage to use `musl-dev` instead of `libc-dev` for proper static linking on Alpine.
+    - Removed unnecessary `libfl-dev` runtime dependency from the Docker runtime stage.
+    - Updated the runtime fallback compiler in `app.py` to also use the `-static` flag.
+- **Missing Source Artifact**:
+    - Added pre-generated `bin/lex.yy.c` to the repository so the Vercel build script and runtime fallback can compile the lexer without requiring `flex` to be installed.
+
 ## [2.3.0] - 2026-05-13
 
 ### Added

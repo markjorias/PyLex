@@ -4,6 +4,6 @@
 
 echo "Building Lexer Engine..."
 mkdir -p bin
-gcc bin/lex.yy.c -o bin/lexer
+gcc -static bin/lex.yy.c -o bin/lexer
 chmod +x bin/lexer
 echo "Build Complete."
