@@ -7,7 +7,7 @@ PyLex is a high-performance lexical analyzer for Python, powered by Flex and Fla
 ![Deployment](https://img.shields.io/badge/deploy-Vercel%20%7C%20Docker-white)
 
 **🌐 Live Demo:** [https://pylex-flex.vercel.app](https://pylex-flex.vercel.app)  
-**📺 Video Demo:** [Watch on YouTube](https://www.youtube.com/watch?v=your-video-id)
+**📺 Video Demo:** [Watch on YouTube](https://youtu.be/sA_NWbcas8I)
 
 ---
 
