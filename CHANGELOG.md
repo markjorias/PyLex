@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.4.0] - 2026-05-14
+
+### Added
+- **Visual Documentation**: Integrated a gallery of mobile and desktop views at the top of the documentation for better visual context.
+- **Enhanced Architecture Diagrams**: Replaced the ASCII architecture diagram with a high-quality SVG (`lexer_app_architecture.svg`) and added a clear, five-step explanation of the data flow.
+- **User-Friendly Error Handling**: Added a simplified example and explanation of how the system handles unrecognized characters (e.g., using the `$` symbol).
+
+### Changed
+- **Documentation Consolidation**: Finalized `docs/DOCUMENTATION.md` as the primary technical reference and simplified `README.md` to point to it.
+- **Student Identity**: Updated the official student name to **Mark Joseph Orias**.
+- **Test Case Alignment**: Corrected the documentation test cases to match the actual lexer behavior (Indentation order in Test Case 1 and valid operator handling in Test Case 2).
+
+### Removed
+- **Redundant Artifacts**: Deleted temporary edited documentation, template files, and the video presentation script to maintain a clean repository structure.
+
 ## [2.3.1] - 2026-05-14
 
 ### Fixed
